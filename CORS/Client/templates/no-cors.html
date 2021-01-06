@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>No CORS!</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript">
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open('GET', 'http://127.0.0.1:5025/1.jpeg', true);
+		
+		xhr.onload = function(){
+			var img = new Image();
+			var response = xhr.responseText;
+			var binary = ""
+			
+			for(i=0;i<response.length;i++){
+				binary += String.fromCharCode(response.charCodeAt(i) & 0xff);
+			}
+			
+			img.src = 'data:image/jpeg;base64,' + btoa(binary);
+			var img = document.createElement('img');
+			img.src = 'data:image/jpeg;base64,' + btoa(binary);
+			img.width = "1500";
+			img.height = "938";
+			document.body.appendChild(img);
+		}
+		
+		xhr.overrideMimeType('text/plain; charset=x-user-defined');
+		xhr.send();
+	</script>
+</head>
+<body>
+</body>
+</html>
